@@ -18,7 +18,7 @@ public class SimpleSubsystemPosition extends YamlSubsystem implements SubsystemP
      * Motor that controls the elevator
      */
     @NotNull
-    private FPSTalon motor;
+    private final FPSTalon motor;
 
     /**
      * Default Constructor
