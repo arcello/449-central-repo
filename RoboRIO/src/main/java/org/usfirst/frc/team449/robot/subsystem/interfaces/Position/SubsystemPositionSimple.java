@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.usfirst.frc.team449.robot.jacksonWrappers.FPSTalon;
 import org.usfirst.frc.team449.robot.jacksonWrappers.YamlSubsystem;
 
@@ -22,32 +21,20 @@ public class SimpleSubsystemPosition extends YamlSubsystem implements SubsystemP
     private FPSTalon motor;
 
     /**
-     * Forward Limit Switch
-     */
-    @NotNull
-    DigitalInput forwardLimitSwitch;
-
-    /**
-     * Reverse Limit Switch
-     */
-    @NotNull
-    DigitalInput reverseLimitSwitch;
-
-
-    /**
      * Default Constructor
      * @param motor The motor changing the position
-     * @param forwardLimitSwitch The forward limit switch
-     * @param reverseLimitSwitch The reverse limit switch
      */
-    public SimpleSubsystemPosition(@NotNull @JsonProperty(required = true) FPSTalon motor,
-                                   @NotNull @JsonProperty(required = true) DigitalInput forwardLimitSwitch,
-                                   @NotNull @JsonProperty(required = true) DigitalInput reverseLimitSwitch){
+    @JsonCreator
+    public SimpleSubsystemPosition(@NotNull @JsonProperty(required = true) FPSTalon motor){
         this.motor = motor;
-        this.forwardLimitSwitch = forwardLimitSwitch;
-        this.reverseLimitSwitch = reverseLimitSwitch;
+    }
 
-
+    /**
+     * Initialize the default command to do nothing.
+     */
+    @Override
+    protected void initDefaultCommand() {
+        //Do nothing!
     }
 
     /**
@@ -69,15 +56,14 @@ public class SimpleSubsystemPosition extends YamlSubsystem implements SubsystemP
      * @return the state of the reverse limit switch
      */
     public boolean getReverseLimit(){
-        return reverseLimitSwitch.get();
+        return motor.getRevLimitSwitch();
     }
 
     /**
      * @return the state of the forward limit switch
      */
     public boolean getForwardLimit(){
-        return forwardLimitSwitch.get();
-
+        return motor.getFwdLimitSwitch();
     }
 
     /**
@@ -93,4 +79,6 @@ public class SimpleSubsystemPosition extends YamlSubsystem implements SubsystemP
     public void disableMotor(){
         motor.disable();
     }
+
+
 }
