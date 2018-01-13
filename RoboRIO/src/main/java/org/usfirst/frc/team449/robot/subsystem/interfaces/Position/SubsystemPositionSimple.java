@@ -12,7 +12,7 @@ import org.usfirst.frc.team449.robot.jacksonWrappers.YamlSubsystem;
  * Simple Position Subsystem
  */
 @JsonIdentityInfo(generator = ObjectIdGenerators.StringIdGenerator.class)
-public class SimpleSubsystemPosition extends YamlSubsystem implements SubsystemPosition{
+public class SubsystemPositionSimple extends YamlSubsystem implements SubsystemPosition{
 
     /**
      * Motor that controls the elevator
@@ -25,7 +25,7 @@ public class SimpleSubsystemPosition extends YamlSubsystem implements SubsystemP
      * @param motor The motor changing the position
      */
     @JsonCreator
-    public SimpleSubsystemPosition(@NotNull @JsonProperty(required = true) FPSTalon motor){
+    public SubsystemPositionSimple(@NotNull @JsonProperty(required = true) FPSTalon motor){
         this.motor = motor;
     }
 
